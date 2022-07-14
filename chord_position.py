@@ -112,25 +112,6 @@ def muted_notes(comb_inp):
     '''Удаление неиграемые нот, если они не крайние'''
     pass
 
-def no_inversion(comb_inp):
-    '''Исключает обращения аккордов - комбинации в которых самая низкая нота НЕ тоник'''
-    pure_chord = [[] for i in range(len(comb_inp))]
-    for k, i in enumerate(comb_inp):
-        stop_check = False
-        for l, j in enumerate(i):
-            if l <= (len(st.string_values)-len(chord_simple_value(note,chord))) and not stop_check :
-                #не имеет смысла проверять если играемых струн меньше чем нот в аккорде
-                if j%12 != chord_simple_value(note,chord)[0]:
-                    pure_chord[k].append(-1)
-                    #из-за того, что разные элементы приравниваются к одному значению, возникает задвоение
-                else:
-                    pure_chord[k].append(j)
-                    stop_check = True  #нашли флажок, перестаем проверять на тонику
-            else:
-                pure_chord[k].append(j)
-    pure_chord = [i for k, i in enumerate(pure_chord) if i not in pure_chord[k+1:]] #убираем задвоения
-    return pure_chord
-
 
 def guitar_chord_vers0():
     '''Порядок обработки комбинаций.
